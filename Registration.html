@@ -43,28 +43,30 @@
         <div id="Loginpage" style="display:none">
             <div align="center">
                 <h1 id='status'>login</h1>
-                <input type="text" id="email" name="email" placeholder="E-mail" />
-                <input type="password" id="password" name="password" placeholder="Password" />
+                <input type="text" id="email1" name="email" placeholder="E-mail" />
+                <input type="password" id="password1" name="password" placeholder="Password" />
 
 
-                <input type="submit" id='login' name="login" value="login" />
+                <button id='login' name="login" value="login"> submit</button>
+
 
             </div>
         </div>
         <div id="Homepage" style="display:none">
             <div class="header" style="display: flex;">
-                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.teahub.io%2Fviewwp%2FioTxoJT_high-tech-backgrounds%2F&psig=AOvVaw3Ql9nCzCQbsVrZcJ2YXSMO&ust=1644487532934000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOCm4dOv8vUCFQAAAAAdAAAAABAD" width="50px" height="50px" alt="logo" />
+                <img src="img1.png" width="50px" height="50px" alt="logo" />
                 <h1 bgcolor="blue">Welcome</h1>
 
             </div>
             <br>
-            <form>
+            <form onsubmit="Ready()">
 
-                Name :<input type="text" id="username"><br>
-                Email :<input type="text" id="email"><br>
-                Phone :<input type="text" id="phone"><br>
-                DOB :<input type="text" id="dob"><br>
-                <button id="update" onclick="Ready()">UPDATE</button>
+                Name :<input type="text" id="username2"><br>
+                Email :<input type="text" id="email2"><br>
+                Phone :<input type="text" id="phone2"><br>
+                DOB :<input type="text" id="dob2"><br>
+                <button type="submit">UPDATE</button>
+            </form>
 
         </div>
     </div>
@@ -135,9 +137,9 @@
     });
 
     login.addEventListener('click', (e) => {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-
+        var email = document.getElementById('email1').value;
+        var password = document.getElementById('password1').value;
+        console.log({ email, password });
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
@@ -196,18 +198,15 @@
 
     });
 
-
-
-    const analytics = getAnalytics(app);
-    var name, email, phone, dob;
-
-    function Ready() {
+    function Ready(e) {
+        e.preventDefault();
         console.log("updated");
         alert("updated Successfully!!!");
-        username = document.getElementById('username').value;
-        email = document.getElementById('email').value;
-        phno = document.getElementById('phno').value;
-        dob = document.getElementById('dob').value;
+        const analytics = getAnalytics(app);
+        username = document.getElementById('username2').value;
+        email = document.getElementById('email2').value;
+        phno = document.getElementById('phno2').value;
+        dob = document.getElementById('dob2').value;
         function writeUserData(username, email, phno, dob) {
             const db = getDatabase();
             set(ref(db, 'users/' + userId), {
@@ -220,6 +219,7 @@
         }
 
     }
+
 
 </script>
 
