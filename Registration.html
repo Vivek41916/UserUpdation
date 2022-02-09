@@ -20,7 +20,7 @@
         <div class="Buttons" align="center">
             <button id='btn1' type="button" class="btn btn-outline-primary" onclick="handleRegister()">Create
                 Account</button>
-            <button id="'btn2" type="button" class="btn btn-outline-success" onclick="handleLogin()">Login</button>
+            <button id='btn2' type="button" class="btn btn-outline-success" onclick="handleLogin()">Login</button>
 
         </div>
         <hr>
@@ -52,11 +52,18 @@
             </div>
         </div>
         <div id="Homepage" style="display:none">
+            <div class="header" style="display: flex;">
+                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.teahub.io%2Fviewwp%2FioTxoJT_high-tech-backgrounds%2F&psig=AOvVaw3Ql9nCzCQbsVrZcJ2YXSMO&ust=1644487532934000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOCm4dOv8vUCFQAAAAAdAAAAABAD" width="50px" height="50px" alt="logo" />
+                <h1 bgcolor="blue">Welcome</h1>
+
+            </div>
+            <br>
             <form>
-                Name :<input type="text" name="nameb"><br>
-                Email :<input type="text" name="emailb"><br>
-                Phone :<input type="text" name="phoneb"><br>
-                DOB :<input type="text" name="dobb"><br>
+
+                Name :<input type="text" id="username"><br>
+                Email :<input type="text" id="email"><br>
+                Phone :<input type="text" id="phone"><br>
+                DOB :<input type="text" id="dob"><br>
                 <button id="update" onclick="Ready()">UPDATE</button>
 
         </div>
@@ -75,8 +82,7 @@
     // Your web app's Firebase configuration
 
 
-
-const firebaseConfig = {
+    const firebaseConfig = {
   apiKey: "AIzaSyBjciLQ4iO4M4k1ZNwkG2bTFoqOOGJGdx8",
   authDomain: "registration-238d1.firebaseapp.com",
   databaseURL: "https://registration-238d1-default-rtdb.firebaseio.com",
@@ -98,9 +104,11 @@ const firebaseConfig = {
         var email = document.getElementById('email').value || '';
         var password = document.getElementById('password').value || '';
         var username = document.getElementById('username').value || '';
+        var phno = document.getElementById('phno').value;
+        var dob = document.getElementById('dob').value;
         console.log('click');
 
-        createUserWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password, phno, dob)
             .then((userCredential) => {
                 // Signed in 
 
@@ -108,7 +116,9 @@ const firebaseConfig = {
 
                 set(ref(database, 'users/' + user.uid), {
                     username: username,
-                    email: email
+                    email: email,
+                    phoneNo: phno,
+                    DOB: dob
                 })
 
                 alert('user created!');
@@ -190,11 +200,25 @@ const firebaseConfig = {
 
     const analytics = getAnalytics(app);
     var name, email, phone, dob;
+
     function Ready() {
-        name = document.getElementById('username').value;
+        console.log("updated");
+        alert("updated Successfully!!!");
+        username = document.getElementById('username').value;
         email = document.getElementById('email').value;
         phno = document.getElementById('phno').value;
         dob = document.getElementById('dob').value;
+        function writeUserData(username, email, phno, dob) {
+            const db = getDatabase();
+            set(ref(db, 'users/' + userId), {
+                username: username,
+                email: email,
+                phoneNo: phno,
+                DOB: dob
+            });
+            alert("updated Successfully!!!");
+        }
+
     }
 
 </script>
